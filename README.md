@@ -26,7 +26,7 @@ For mere details check our [Arxiv preprint](https://arxiv.org/abs/1907.04298).
 
 ## Getting started
 
-##### Data
+#### Data
 First, you will need data. This framework is ready to use either our
 [URSO datasets](https://zenodo.org/record/3279632#.XZIIuHVKg5k)
 or the [SPEED dataset](https://kelvins.esa.int/satellite-pose-estimation-challenge/data/) 
@@ -50,7 +50,7 @@ split_speed('datasets/speed', 10)
 This will split 90% of the dataset for training and 10% for the validation set by generating the respective JSON files. N.b.
 At the time of writing, SPEED test set is not open.
 
-##### Dependencies
+#### Dependencies
 
 Python>=3.4, TensorFlow=>1.9, Keras>=2.1.6 and other common packages listed in `requirements.txt`.
 You can use the following to install all dependencies.
@@ -113,7 +113,7 @@ Just make sure you are using consistent network configurations.
 
 #### Inference
 
-To test and visualize results on the test-set using the weights of a specific model inside `logs` , e.g., 'soyuz_20191001T1207', run
+To test and visualize results on the test-set using the weights of a specific model inside `logs`, e.g., 'soyuz_20191001T1207', run
 ```
 python3 pose_estimator.py test --dataset soyuz_easy --weights soyuz_easy20191001T1207 --image_scale 0.5 --ori_resolution 24
 ```
