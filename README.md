@@ -3,7 +3,7 @@
 Tensorflow/Keras implementation of UrsoNet, the network used on the [European Space Agency's Pose Estimation Challenge](https://kelvins.esa.int/satellite-pose-estimation-challenge/) that achieved 3th place.
 
 <p align="center">
-<img src="./media/sim2real.gif" width="50%" >
+<img src="./media/demo.gif" width="50%" >
 </p>
 
 UrsoNet is a simple architecture developed for object pose estimation, which uses Resnet as a backbone.
