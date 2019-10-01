@@ -113,7 +113,7 @@ Just make sure you are using consistent network configurations.
 
 #### Inference
 
-To test and visualize results on the test-set using the weights of a specific model inside `logs`, e.g., 'soyuz_20191001T1207', run
+To test and visualize results on the test-set using the weights of a specific model inside `logs`, e.g., 'soyuz_20191001T1207' (feel free to rename it), run
 ```
 python3 pose_estimator.py test --dataset soyuz_easy --weights soyuz_easy20191001T1207 --image_scale 0.5 --ori_resolution 24
 ```
