@@ -66,18 +66,18 @@ takes the following general arguments:
 
 | Argument| Required | Type | Description |
 |-------------------|--------------|---------- | ------|
-| --backbone  | False | string| Backbones currently supported {'resnet18', 'resnet34', 'resnet50', 'resnet101'}. Default='resnet50'|
-| --dataset   | True  | string| Name of dataset folder. If you are using SPEED set this to 'speed' |
-| --weights | True | string | A path to weights .h5 file or 'coco' for coco pre-trained weights or 'last' for last trained model|
-| --image_scale | False | float | Scale used to resize input image, default=1.0 |
-| --bottleneck | False | int |  Bottleneck width, default=32  |
-| --branch_size | False | int | Size of branch input layers, default=1024  |
-| --f16 | False | bool | If you are using modern GPUs (RTX), this tells TF/Keras to use half precison: float16. By default this is False.|
-| --regress_ori | False | bool | Sets orientation branch to regression. By default this branch does classification|
-|-- ori_resolution|False| int |Number of bins assigned to each Euler angle, default=16|
-| --ori_param  | False | string| Regression orientation parameterization: {'quaternion', 'euler_angles', 'angle_axis'}, default='quaternion'|
-| --classify_loc  | False | bool| Sets location branch to classifcation. By default this branch does regression|
-| --regress_keypoints  | False | bool| Experimental. Overrides the branch configuration above and sets this to regression of 3 3D keypoints. By default this is false.|
+| backbone  | False | string| Backbones currently supported {'resnet18', 'resnet34', 'resnet50', 'resnet101'}. Default='resnet50'|
+| dataset   | True  | string| Name of dataset folder. If you are using SPEED set this to 'speed' |
+| weights | True | string | A path to weights .h5 file or 'coco' for coco pre-trained weights or 'last' for last trained model|
+| image_scale | False | float | Scale used to resize input image, default=1.0 |
+| bottleneck | False | int |  Bottleneck width, default=32  |
+| branch_size | False | int | Size of branch input layers, default=1024  |
+| f16 | False | bool | If you are using modern GPUs (RTX), this tells TF/Keras to use half precison: float16. By default this is False.|
+| regress_ori | False | bool | Sets orientation branch to regression. By default this branch does classification|
+|ori_resolution|False| int |Number of bins assigned to each Euler angle, default=16|
+| ori_param  | False | string| Regression orientation parameterization: {'quaternion', 'euler_angles', 'angle_axis'}, default='quaternion'|
+| classify_loc  | False | bool| Sets location branch to classifcation. By default this branch does regression|
+| regress_keypoints  | False | bool| Experimental. Overrides the branch configuration above and sets this to regression of 3 3D keypoints. By default this is false.|
 
 #### Training
  
@@ -85,19 +85,19 @@ The training configuration takes also the following arguments:
 
 | Argument| Required | Type | Description |
 |-------------------|--------------|---------- | ------|
-| --batch_size  | False | int | Number of images used per GPU, default=4  |
-| --epochs | False | int | Number of epochs, default=100              |
-| --clr  | False   | bool| Option to use cyclical learning rate, default=False, You need to adjust other clr params in `config.py`|
-| --learn_rate  | False  |float | Fixed learning rate, in theory this should depend on the batch size, default: 0.001 |
-| --rot_aug  | False     |  bool | Option to use camera orientation perturbations as augmentation, default=False |
-| --rot_image_aug  | False |  bool | Option to use in-plane image rotation as augmentation, default=False |
-| --sim2real  | False |  bool     | Enables the image augmentation pipeline proposed in the paper. This includes converting to grayscale. You can change this in `net.py`, default=False|
-| --ori_weight  | False|  float | Orientation loss weight, default = 1.0               |
-| --loc_weight  | False|  float | Location loss weight, default = 1.0                  |
+| batch_size  | False | int | Number of images used per GPU, default=4  |
+| epochs | False | int | Number of epochs, default=100              |
+| clr| False   | bool| Option to use cyclical learning rate, default=False, You need to adjust other clr params in `config.py`|
+| learn_rate  | False  |float | Fixed learning rate, in theory this should depend on the batch size, default: 0.001 |
+| rot_aug  | False     |  bool | Option to use camera orientation perturbations as augmentation, default=False |
+|rot_image_aug| False |  bool | Option to use in-plane image rotation as augmentation, default=False |
+| sim2real  | False |  bool     | Enables the image augmentation pipeline proposed in the paper. This includes converting to grayscale. You can change this in `net.py`, default=False|
+| ori_weight  | False|  float | Orientation loss weight, default = 1.0               |
+| loc_weight  | False|  float | Location loss weight, default = 1.0                  |
 
 
 To train UrsoNet on 'soyuz_easy' with ResNet-50, pre-trained backbone
-weights from COCO use, rotation augmentation and :
+weights from COCO and rotation augmentation use:
 ```
 python3 pose_estimator.py train --dataset soyuz_easy --weights coco --image_scale 0.5 --ori_resolution 24 --rot_aug --rot_image_aug
 ```
@@ -113,7 +113,7 @@ Just make sure you are using consistent network configurations.
 
 #### Inference
 
-To test and visualize results on the test-set using the weights of a specific model inside `logs` , e.g., 'soyuz_easy20191001T1207', run
+To test and visualize results on the test-set using the weights of a specific model inside `logs` , e.g., 'soyuz_20191001T1207', run
 ```
 python3 pose_estimator.py test --dataset soyuz_easy --weights soyuz_easy20191001T1207 --image_scale 0.5 --ori_resolution 24
 ```
@@ -126,6 +126,6 @@ python3 pose_estimator.py evaluate --dataset soyuz_easy --weights soyuz_easy2019
 
 #### TODO
 
-The networks weights used on the ESA challenge and the paper will be released soon.
+The networks weights used on the ESA challenge and the paper experiments will be released soon.
 
 
