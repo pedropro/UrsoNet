@@ -883,6 +883,71 @@ class UrsoNet():
                                    md5_hash='8caaa0ad39d927cb8ba5385bf945d582')
         return weights_path
 
+    def get_urso_weights(self, dataset_name):
+        """Downloads URSO trained weights from Keras.
+        Returns path to weights file.
+        """
+
+        assert dataset_name in ['soyuz_hard', 'dragon_hard', 'speed']
+
+        from keras.utils.data_utils import get_file
+
+        if dataset_name == "soyuz_hard":
+
+            assert self.config.BACKBONE == 'resnet50'
+            assert self.config.BOTTLENECK_WIDTH == 128
+            assert self.config.ORI_BINS_PER_DIM == 24
+
+            TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0\
+             /resnet50_soyuz_hard_128_24.h5'
+
+            weights_path = get_file('resnet50_soyuz_hard_128_24.h5',
+                                    TF_WEIGHTS_PATH,
+                                    cache_subdir='models')
+
+        elif dataset_name == "dragon_hard":
+
+            assert self.config.BACKBONE == 'resnet50'
+            assert self.config.BOTTLENECK_WIDTH == 128
+            assert self.config.ORI_BINS_PER_DIM == 24
+
+            TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0\
+             /resnet50_dragon_hard_128_24.h5'
+
+            weights_path = get_file('resnet50_dragon_hard_128_24.h5',
+                                    TF_WEIGHTS_PATH,
+                                    cache_subdir='models')
+
+        elif dataset_name == "speed":
+
+            assert self.config.BACKBONE == 'resnet101'
+
+            if self.config.ORI_BINS_PER_DIM == 32:
+
+                assert self.config.BOTTLENECK_WIDTH == 528
+
+                weights_name = 'resnet101_speed_528_32.h5'
+
+                TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0/' + weights_name
+
+                weights_path = get_file(weights_name,
+                                        TF_WEIGHTS_PATH,
+                                        cache_subdir='models')
+
+            elif self.config.ORI_BINS_PER_DIM == 64:
+
+                assert self.config.BOTTLENECK_WIDTH == 800
+
+                weights_name = 'resnet101_speed_800_64.h5'
+
+                TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0/' + weights_name
+
+                weights_path = get_file(weights_name,
+                                        TF_WEIGHTS_PATH,
+                                        cache_subdir='models')
+
+        return weights_path
+
 
 
     def set_log_dir(self, model_path=None):
