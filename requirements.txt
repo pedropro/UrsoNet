@@ -1,6 +1,6 @@
 numpy
 pandas
-cv2
+opencv-python
 scipy
 matplotlib
 scikit-image
