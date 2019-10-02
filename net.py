@@ -898,12 +898,9 @@ class UrsoNet():
             assert self.config.BOTTLENECK_WIDTH == 128
             assert self.config.ORI_BINS_PER_DIM == 24
 
-            TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0\
-             /resnet50_soyuz_hard_128_24.h5'
+            weights_name = 'resnet50_soyuz_hard_128_24.h5'
 
-            weights_path = get_file('resnet50_soyuz_hard_128_24.h5',
-                                    TF_WEIGHTS_PATH,
-                                    cache_subdir='models')
+            TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0/' + weights_name
 
         elif dataset_name == "dragon_hard":
 
@@ -911,12 +908,10 @@ class UrsoNet():
             assert self.config.BOTTLENECK_WIDTH == 128
             assert self.config.ORI_BINS_PER_DIM == 24
 
-            TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0\
-             /resnet50_dragon_hard_128_24.h5'
+            weights_name = 'resnet50_dragon_hard_128_24.h5'
 
-            weights_path = get_file('resnet50_dragon_hard_128_24.h5',
-                                    TF_WEIGHTS_PATH,
-                                    cache_subdir='models')
+            TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0\/' + weights_name
+
 
         elif dataset_name == "speed":
 
@@ -930,9 +925,6 @@ class UrsoNet():
 
                 TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0/' + weights_name
 
-                weights_path = get_file(weights_name,
-                                        TF_WEIGHTS_PATH,
-                                        cache_subdir='models')
 
             elif self.config.ORI_BINS_PER_DIM == 64:
 
@@ -942,9 +934,8 @@ class UrsoNet():
 
                 TF_WEIGHTS_PATH = 'https://github.com/pedropro/UrsoNet/releases/download/v1.0/' + weights_name
 
-                weights_path = get_file(weights_name,
-                                        TF_WEIGHTS_PATH,
-                                        cache_subdir='models')
+
+        weights_path = get_file(weights_name,TF_WEIGHTS_PATH,cache_subdir='models')
 
         return weights_path
 

@@ -70,6 +70,7 @@ takes the following general arguments:
 | dataset   | True  | string| Name of dataset folder. If you are using SPEED set this to 'speed' |
 | weights | True | string | A path to weights .h5 file or 'coco' for coco pre-trained weights or 'last' for last trained model|
 | image_scale | False | float | Scale used to resize input image, default=1.0 |
+| square_image | False | bool | Pads input images with zeros to get a square. By default, images are only resized and padded enough to get dimensions multiples of 64 |
 | bottleneck | False | int |  Bottleneck width, default=32  |
 | branch_size | False | int | Size of branch input layers, default=1024  |
 | f16 | False | bool | If you are using modern GPUs (RTX), this tells TF/Keras to use half precison: float16. By default this is False.|
@@ -124,8 +125,18 @@ To evaluate the network on the full test set (val set for 'SPEED'). Use:
 python3 pose_estimator.py evaluate --dataset soyuz_easy --weights soyuz_easy20191001T1207 --image_scale 0.5 --ori_resolution 24
 ```
 
-#### TODO
+#### Pre-trained weights on URSO and SPEED
 
-The networks weights used on the ESA challenge and the paper experiments will be released soon.
+Our weights are available [here](https://github.com/pedropro/UrsoNet/releases/tag/v1.0).
+If you want to use directly our weights, all you have to do is change the argument
+ `weights` to one of these `{'soyuz_hard', 'dragon_hard', 'speed'}` and make sure you pass the right arguments like this:
+```
+python3 -W ignore  pose_estimator.py test --dataset soyuz_easy --weights soyuz_hard --image_scale 0.5 --ori_resolution 24 --bottleneck 128 --square_image
+```
+or this:
+```
+python3 -W ignore  pose_estimator.py test --backbone resnet101 --dataset speed --weights speed --image_scale 0.5 --ori_resolution 32 --bottleneck 528 --f16
+```
+
 
 

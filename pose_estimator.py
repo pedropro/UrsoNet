@@ -795,6 +795,8 @@ if __name__ == '__main__':
     parser.set_defaults(clr=False)
     parser.add_argument('--f16', dest='f16', action='store_true')
     parser.set_defaults(f16=False)
+    parser.add_argument('--square_image', dest='square_image', action='store_true')
+    parser.set_defaults(square_image=False)
     parser.add_argument('--ori_param', required=False, default='quaternion', help="'quaternion' 'euler_angles' 'angle_axis'")
     parser.add_argument('--ori_resolution', required=False, default=16, type=int, help="Number of bins assigned to each angle")
     parser.add_argument('--weights', required=True, help="Path to weights .h5 file or 'coco' or 'imagenet' for coco pre-trained weights")
@@ -833,7 +835,11 @@ if __name__ == '__main__':
     config.LOSS_WEIGHTS['ori_loss'] = args.ori_weight
 
     # Set up resizing & padding if needed
-    config.IMAGE_RESIZE_MODE = 'pad64' # 'square' #
+    if args.square_image:
+        config.IMAGE_RESIZE_MODE = 'square'
+    else:
+        config.IMAGE_RESIZE_MODE = 'pad64'
+
     if args.dataset == "speed":
         width_original = speed.Camera.width
         height_original = speed.Camera.height
@@ -886,6 +892,8 @@ if __name__ == '__main__':
     elif args.weights.lower() == "imagenet":
         # Start from ImageNet trained weights
         weights_path = model.get_imagenet_weights(config.BACKBONE)
+    elif args.weights.lower() in ['soyuz_hard', 'dragon_hard', 'speed']:
+        weights_path = model.get_urso_weights(args.weights)
     elif args.weights.lower() != "none":
         _, weights_path = model.get_last_checkpoint(args.weights)
 
@@ -897,6 +905,8 @@ if __name__ == '__main__':
             "mrcnn_class_logits", "mrcnn_bbox_fc",
             "mrcnn_bbox", "mrcnn_mask"])
     elif args.weights.lower() == "imagenet":
+        model.load_weights(weights_path, None, by_name=True)
+    elif args.weights.lower() in ['soyuz_hard', 'dragon_hard', 'speed']:
         model.load_weights(weights_path, None, by_name=True)
     elif args.weights.lower() != "none":
         model.load_weights(weights_path, weights_path, by_name=True)
@@ -923,9 +933,7 @@ if __name__ == '__main__':
 
     elif args.command == "test":
 
-        if args.image:
-            detect_image(model, args.image)
-        elif args.video:
+        if args.video:
             dataset = urso.Urso()
             dataset.load_dataset(dataset_dir, config, "test")
             detect_video(model, dataset, args.video)
