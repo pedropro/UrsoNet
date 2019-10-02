@@ -32,8 +32,8 @@ assert nr_images == len(poses)
 shuffle_ids = np.arange(nr_images)
 random.shuffle(shuffle_ids)
 
-nr_testing_images = int(nr_images*args.testing_percentage*0.01+0.5)
-nr_nontraining_images = int(nr_images*(args.testing_percentage+args.validation_percentage)*0.01+0.5)
+nr_testing_images = int(nr_images*args.test_percentage*0.01+0.5)
+nr_nontraining_images = int(nr_images*(args.test_percentage+args.val_percentage)*0.01+0.5)
 
 # Split poses according to shuffle
 poses_test = poses.loc[shuffle_ids[0:nr_testing_images]]
