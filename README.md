@@ -13,7 +13,7 @@ While one branch simply regresses location, the other performs orientation soft 
 <img src="./media/pipeline.png" width="500" class="center">
 </p>
 
-For mere details check our [Arxiv preprint](https://arxiv.org/abs/1907.04298).
+For more details check our [Arxiv preprint](https://arxiv.org/abs/1907.04298).
 
 ```
 @article{proenca2019deep,
